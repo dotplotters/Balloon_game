@@ -4,32 +4,35 @@ using UnityEngine;
 
 public class basicPins : MonoBehaviour
 {
-    float speed = 5f;
-    float force = 20f;
-    Vector3 vel;
-    private float gravity;
-    private Rigidbody rigidbody;
-    private float sqrMag = 100f;
+    private float gravity = 7f;
+
+    public GameObject pin_bar;
+
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody>();
+        Physics.gravity = new Vector3(0f, 0f, gravity);
+        StartCoroutine(myCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (rigidbody.velocity.sqrMagnitude < sqrMag)
-        {
-            gravity = 10f;
-        }
-        else {
-            gravity = 0;
-        }
+        
 
-        Physics.gravity = new Vector3(0f, 0f, gravity);
+        
     }
 
+
+    IEnumerator myCoroutine()
+    {
+        while (true)
+        {
+            Instantiate(pin_bar);
+            yield return new WaitForSeconds(1f);
+        }
+        
+    }
 
 
 }
